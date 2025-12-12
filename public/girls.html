@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Megumi | Girls</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">Megumi</div>
+    <nav>
+      <a href="/index.html">Home</a>
+      <a href="/boys.html">Boys</a>
+      <a href="/girls.html" class="active">Girls</a>
+      <a href="/parents.html">Parents</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Girls collection</h1>
+        <p>Keep the girls catalog fresh with new outfits and accessories. All items are saved in MongoDB and instantly rendered here.</p>
+      </div>
+      <div>
+        <form class="product-form" data-category="girls">
+          <h3>Add to girls</h3>
+          <label for="girls-name">Name</label>
+          <input type="text" id="girls-name" required />
+          <label for="girls-price">Price</label>
+          <input type="number" id="girls-price" step="0.01" />
+          <label for="girls-image">Image URL</label>
+          <input type="url" id="girls-image" />
+          <label for="girls-description">Description</label>
+          <textarea id="girls-description" rows="3"></textarea>
+          <button type="submit">Add product</button>
+          <p class="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <h2 class="section-title">Girls catalog</h2>
+    <div id="product-grid" class="products-grid" data-category="girls"></div>
+  </main>
+  <footer>Megumi • Girls collection</footer>
+  <script src="/js/category.js"></script>
+</body>
+</html>
