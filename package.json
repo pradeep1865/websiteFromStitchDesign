@@ -1,0 +1,14 @@
+{
+  "name": "megumi-website",
+  "version": "1.0.0",
+  "description": "Megumi multi-page storefront with MongoDB-backed credentials and product management.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
