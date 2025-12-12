@@ -330,7 +330,7 @@ function serveStatic(res, pathname) {
   });
 }
 
-const server = http.createServer(async (req, res) => {
+async function requestListener(req, res) {
   // Handle CORS preflight quickly.
   if (req.method === 'OPTIONS') {
     res.writeHead(204, {
@@ -363,13 +363,19 @@ const server = http.createServer(async (req, res) => {
   }
 
   serveStatic(res, pathname === '/' ? '/' : pathname);
-});
+}
+
+const server = http.createServer(requestListener);
 
 process.on('SIGINT', async () => {
   if (client) await client.close();
   process.exit(0);
 });
 
-server.listen(port, () => {
-  console.log(`Megumi server listening on port ${port}`);
-});
+if (require.main === module) {
+  server.listen(port, () => {
+    console.log(`Megumi server listening on port ${port}`);
+  });
+}
+
+module.exports = { handler: requestListener, server };

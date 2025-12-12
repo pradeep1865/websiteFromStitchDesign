@@ -22,6 +22,9 @@ A lightweight multi-page site (boys, girls, parents) with MongoDB-backed credent
 4. Visit `http://localhost:3000` for the home page, with navigation to boys, girls, and parents pages.
    - If MongoDB is unavailable or the driver is not installed, the server automatically falls back to an in-memory store so pages stay functional (data will reset on restart). Install the `mongodb` package and set `MONGODB_URI` to persist data.
 
+## Deploying to Vercel
+- The included `vercel.json` routes all traffic through `api/server.js`, which re-exports the request handler from `server.js`. Deploy the project root and Vercel will serve the same static pages and API without needing Express.
+
 ## Features
 - Register/login endpoints storing hashed credentials in MongoDB.
 - CRUD product API with category filtering.
