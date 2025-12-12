@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Megumi | Parents</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">Megumi</div>
+    <nav>
+      <a href="/index.html">Home</a>
+      <a href="/boys.html">Boys</a>
+      <a href="/girls.html">Girls</a>
+      <a href="/parents.html" class="active">Parents</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Parents corner</h1>
+        <p>Share parent-focused products and bundles. Save items to MongoDB and manage them with live updates.</p>
+      </div>
+      <div>
+        <form class="product-form" data-category="parents">
+          <h3>Add to parents</h3>
+          <label for="parents-name">Name</label>
+          <input type="text" id="parents-name" required />
+          <label for="parents-price">Price</label>
+          <input type="number" id="parents-price" step="0.01" />
+          <label for="parents-image">Image URL</label>
+          <input type="url" id="parents-image" />
+          <label for="parents-description">Description</label>
+          <textarea id="parents-description" rows="3"></textarea>
+          <button type="submit">Add product</button>
+          <p class="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <h2 class="section-title">Parents catalog</h2>
+    <div id="product-grid" class="products-grid" data-category="parents"></div>
+  </main>
+  <footer>Megumi • Parents corner</footer>
+  <script src="/js/category.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Megumi | Welcome</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">Megumi</div>
+    <nav>
+      <a href="/index.html" class="active">Home</a>
+      <a href="/boys.html">Boys</a>
+      <a href="/girls.html">Girls</a>
+      <a href="/parents.html">Parents</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div>
+        <h1>Welcome to Megumi</h1>
+        <p>Browse our curated collections for boys, girls, and parents. Add new products directly from the admin panel and keep your catalog in sync with MongoDB.</p>
+        <p class="alert">Assets from the provided design link can be added via the product form once available.</p>
+      </div>
+      <div>
+        <form id="auth-form">
+          <h3>Create your store login</h3>
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+          <label for="password">Password</label>
+          <input type="password" id="password" required />
+          <div class="inline-actions">
+            <button type="submit">Register</button>
+            <button type="button" class="secondary" id="login-btn">Login</button>
+          </div>
+          <p id="auth-status"></p>
+        </form>
+      </div>
+    </section>
+
+    <h2 class="section-title">Quick add product</h2>
+    <form id="product-form">
+      <label for="name">Name</label>
+      <input type="text" id="name" required />
+      <label for="category">Category</label>
+      <select id="category" required>
+        <option value="boys">Boys</option>
+        <option value="girls">Girls</option>
+        <option value="parents">Parents</option>
+      </select>
+      <label for="price">Price</label>
+      <input type="number" id="price" step="0.01" />
+      <label for="imageUrl">Image URL</label>
+      <input type="url" id="imageUrl" />
+      <label for="description">Description</label>
+      <textarea id="description" rows="3"></textarea>
+      <button type="submit">Add product</button>
+      <p id="form-status"></p>
+    </form>
+
+    <h2 class="section-title">Latest products</h2>
+    <div id="product-grid" class="products-grid"></div>
+  </main>
+  <footer>Megumi • MongoDB backed demo storefront</footer>
+  <script src="/js/main.js"></script>
+</body>
+</html>
