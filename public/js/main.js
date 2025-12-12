@@ -6,9 +6,16 @@ const loginBtn = document.getElementById('login-btn');
 const authStatus = document.getElementById('auth-status');
 
 async function fetchProducts() {
-  const res = await fetch('/api/products');
-  const products = await res.json();
-  renderProducts(products);
+  try {
+    const res = await fetch('/api/products');
+    if (!res.ok) throw new Error('Unable to load products');
+    const products = await res.json();
+    renderProducts(products);
+  } catch (error) {
+    if (productGrid) {
+      productGrid.innerHTML = `<p class="error">${error.message}</p>`;
+    }
+  }
 }
 
 function renderProducts(products) {
@@ -42,20 +49,23 @@ if (productForm) {
       imageUrl: document.getElementById('imageUrl').value,
       description: document.getElementById('description').value,
     };
-    const res = await fetch('/api/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      formStatus.textContent = 'Unable to add product.';
+    try {
+      const res = await fetch('/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        throw new Error('Unable to add product.');
+      }
+      productForm.reset();
+      formStatus.textContent = 'Product added.';
+      formStatus.className = 'alert';
+      fetchProducts();
+    } catch (error) {
+      formStatus.textContent = error.message;
       formStatus.className = 'error';
-      return;
     }
-    productForm.reset();
-    formStatus.textContent = 'Product added.';
-    formStatus.className = 'alert';
-    fetchProducts();
   });
 }
 
@@ -66,14 +76,19 @@ if (authForm) {
       email: document.getElementById('email').value,
       password: document.getElementById('password').value,
     };
-    const res = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    const data = await res.json();
-    authStatus.textContent = data.message || 'Unable to register.';
-    authStatus.className = res.ok ? 'alert' : 'error';
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      authStatus.textContent = data.message || 'Unable to register.';
+      authStatus.className = res.ok ? 'alert' : 'error';
+    } catch (error) {
+      authStatus.textContent = 'Unable to register.';
+      authStatus.className = 'error';
+    }
   });
 
   loginBtn.addEventListener('click', async () => {
@@ -81,14 +96,19 @@ if (authForm) {
       email: document.getElementById('email').value,
       password: document.getElementById('password').value,
     };
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    const data = await res.json();
-    authStatus.textContent = data.message || 'Unable to login.';
-    authStatus.className = res.ok ? 'alert' : 'error';
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      authStatus.textContent = data.message || 'Unable to login.';
+      authStatus.className = res.ok ? 'alert' : 'error';
+    } catch (error) {
+      authStatus.textContent = 'Unable to login.';
+      authStatus.className = 'error';
+    }
   });
 }
 

@@ -5,9 +5,14 @@ const category = grid?.dataset.category;
 
 async function loadCategory() {
   if (!category) return;
-  const res = await fetch(`/api/products?category=${category}`);
-  const products = await res.json();
-  render(products);
+  try {
+    const res = await fetch(`/api/products?category=${category}`);
+    if (!res.ok) throw new Error('Unable to load products');
+    const products = await res.json();
+    render(products);
+  } catch (error) {
+    if (grid) grid.innerHTML = `<p class="error">${error.message}</p>`;
+  }
 }
 
 function render(products) {
@@ -42,24 +47,27 @@ if (form) {
       imageUrl: document.getElementById(`${category}-image`).value,
       description: document.getElementById(`${category}-description`).value,
     };
-    const res = await fetch('/api/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      statusEl.textContent = data.message || 'Unable to add product.';
+    try {
+      const res = await fetch('/api/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || 'Unable to add product.');
+      }
+      inputs.forEach((input) => {
+        if (input.tagName === 'TEXTAREA') input.value = '';
+        else input.value = '';
+      });
+      statusEl.textContent = 'Saved to MongoDB.';
+      statusEl.className = 'status alert';
+      loadCategory();
+    } catch (error) {
+      statusEl.textContent = error.message;
       statusEl.className = 'status error';
-      return;
     }
-    inputs.forEach((input) => {
-      if (input.tagName === 'TEXTAREA') input.value = '';
-      else input.value = '';
-    });
-    statusEl.textContent = 'Saved to MongoDB.';
-    statusEl.className = 'status alert';
-    loadCategory();
   });
 }
 

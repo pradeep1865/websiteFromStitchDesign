@@ -4,10 +4,14 @@ A lightweight multi-page site (boys, girls, parents) with MongoDB-backed credent
 
 ## Getting started
 
-1. Install dependencies
+1. Install dependencies (none are required by default)
    ```bash
    npm install
    ```
+   - If you want real MongoDB persistence, add the official driver after install:
+     ```bash
+     npm install mongodb
+     ```
 2. Set environment variables (optional)
    - `MONGODB_URI` – defaults to `mongodb://localhost:27017/megumi`
    - `PORT` – defaults to `3000`
@@ -16,6 +20,7 @@ A lightweight multi-page site (boys, girls, parents) with MongoDB-backed credent
    npm start
    ```
 4. Visit `http://localhost:3000` for the home page, with navigation to boys, girls, and parents pages.
+   - If MongoDB is unavailable or the driver is not installed, the server automatically falls back to an in-memory store so pages stay functional (data will reset on restart). Install the `mongodb` package and set `MONGODB_URI` to persist data.
 
 ## Features
 - Register/login endpoints storing hashed credentials in MongoDB.
